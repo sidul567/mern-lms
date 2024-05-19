@@ -36,7 +36,7 @@ const Login = ({ setRoute, setOpen }: Props) => {
     }
     if(error){
       const errorMessage = error as any;
-      toast.error(errorMessage?.data.message || "Something went wrong!");
+      toast.error(errorMessage?.data?.message || "Something went wrong!");
     }
   }, [isSuccess, error]);
 

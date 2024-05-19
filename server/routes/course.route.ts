@@ -14,7 +14,7 @@ courseRouter.put('/course/update/:courseId', updateAccessToken, isAuthenticate, 
 // Get single course - without purchasing
 courseRouter.get('/course/get/:courseId', getSingleCourse);
 
-// Get single course - without purchasing
+// Get all course - without purchasing
 courseRouter.get('/course/getAllCourses', getAllCourses);
 
 // Get course content - purchasing user

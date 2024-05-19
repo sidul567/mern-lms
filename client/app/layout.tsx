@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${josefinSans.variable} bg-white dark:bg-gradient-b dark:from-gray-900 dark:to-black duration-300`}
+        className={`${poppins.variable} ${josefinSans.variable} dark:bg-gradient-b dark:from-gray-900 dark:to-black duration-300 bg-white dark:bg-slate-900`}
       >
         <Toaster position="top-center" reverseOrder={false} toastOptions={{className: 'font-Poppins'}} />
         <Providers>

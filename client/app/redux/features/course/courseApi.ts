@@ -38,7 +38,7 @@ const courseApi = apiSlice.injectEndpoints({
                 credentials: "include" as const,
                 method: "PUT"
             })
-        })
+        }),
     }))
 })
 

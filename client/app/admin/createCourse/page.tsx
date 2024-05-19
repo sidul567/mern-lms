@@ -25,7 +25,7 @@ const page = (props: Props) => {
           keywords="programming, mern, react, redux, node, mongodb"
         />
 
-        <div className="flex gap-4 min-h-screen dark:bg-slate-900">
+        <div className="flex gap-4 min-h-screen bg-slate-100 dark:bg-slate-900">
           <div className="w-0 800px:w-1/5 1500px:w-[16%]">
             <AdminSidebar
               broken={broken}

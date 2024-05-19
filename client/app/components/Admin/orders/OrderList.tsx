@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useTheme } from "next-themes";
 import { Box } from "@mui/material";
-import {
-  useGetAllCourseQuery,
-} from "@/app/redux/features/course/courseApi";
+import { useGetAllCourseQuery } from "@/app/redux/features/course/courseApi";
 import Loader from "../../Loader/Loader";
 import { format } from "timeago.js";
 import { useGetAllOrdersQuery } from "@/app/redux/features/orders/ordersApi";
@@ -20,18 +18,22 @@ const OrderList = (props: Props) => {
 
   const [orderData, setOrderData] = useState([]);
 
-  useEffect(()=>{
-    if(isSuccess){
-      const tempData = data.orders.map((item: any)=>{
-        const user = userData?.users.find((user: any)=>user._id === item.userId);
-        const course = courseData?.courses.find((course: any)=>course._id === item.courseId);
-        
+  useEffect(() => {
+    if (isSuccess) {
+      const tempData = data.orders.map((item: any) => {
+        const user = userData?.users.find(
+          (user: any) => user._id === item.userId
+        );
+        const course = courseData?.courses.find(
+          (course: any) => course._id === item.courseId
+        );
+
         return {
           ...item,
           userName: user?.name,
           price: "$" + course?.price,
-        }
-      })
+        };
+      });
       setOrderData(tempData);
     }
   }, [isSuccess, userData, courseData, data]);
@@ -49,14 +51,15 @@ const OrderList = (props: Props) => {
 
   const rows: any = [];
 
-  orderData && orderData.forEach((item: any)=>{
-    rows.push({
-      id: "#"+item._id,
-      name: item.userName,
-      price: item.price,
-      createdAt: format(item.createdAt)
-    })
-  })
+  orderData &&
+    orderData.forEach((item: any) => {
+      rows.push({
+        id: "#" + item._id,
+        name: item.userName,
+        price: item.price,
+        createdAt: format(item.createdAt),
+      });
+    });
 
   return (
     <>
