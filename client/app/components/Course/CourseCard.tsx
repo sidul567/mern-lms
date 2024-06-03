@@ -10,7 +10,10 @@ type Props = {
 
 const CourseCard = ({ course }: Props) => {
   return (
-    <Link href={`course/${course._id}`} className="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl shadow-sm">
+    <Link
+      href={`course/${course._id}`}
+      className="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl shadow-sm"
+    >
       <Image
         src={course.thumbnail.url}
         alt=""
@@ -30,10 +33,10 @@ const CourseCard = ({ course }: Props) => {
       <div className="mt-4 flex justify-between items-center">
         <div className="flex gap-2">
           <p className="font-normal font-Poppins text-base text-orange-500 dark:text-orange-400">
-           ${course.price}
+            ${course.price}
           </p>
           <p className="font-normal font-Poppins text-sm line-through -mt-1 text-black dark:text-white">
-           ${course.price}
+            ${course.price}
           </p>
         </div>
         <p className="flex items-center gap-2 font-normal font-Poppins text-base text-black dark:text-white">
