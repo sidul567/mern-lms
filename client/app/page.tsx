@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Courses from "./components/Course/Courses";
 import Reviews from "./components/Reviews/Reviews";
+import FAQ from "./components/FAQ/FAQ";
+import Footer from "./components/Footer";
 
 interface Props{
 
@@ -16,7 +18,7 @@ const Page: FC<Props> = (props)=>{
   const [open, setOpen] = useState(false);
   const [route, setRoute] = useState("login");
   return(
-    <div>
+    <div className="bg-white dark:bg-slate-900">
       <Heading
         title="MERN-LMS"
         description="Mern-LMS is the best platform for learning LMS."
@@ -34,6 +36,8 @@ const Page: FC<Props> = (props)=>{
       <Hero />
       <Courses />
       <Reviews />
+      <FAQ />
+      <Footer />
     </div>
   )
 }

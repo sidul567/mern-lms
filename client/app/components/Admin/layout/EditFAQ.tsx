@@ -78,7 +78,9 @@ const EditFAQ = (props: Props) => {
 
   const handleDeleteFaq = (id: number) => {
     if (faqs.length > 1) {
-      setFaqs((prevFaqs: any) => prevFaqs.filter((faq: any, index:number) => index !== id));
+      setFaqs((prevFaqs: any) =>
+        prevFaqs.filter((faq: any, index: number) => index !== id)
+      );
     }
   };
 
@@ -120,7 +122,7 @@ const EditFAQ = (props: Props) => {
                 <MdKeyboardArrowDown
                   size={25}
                   className={`cursor-pointer duration-300 ${
-                    active !== faq._id ? "rotate-0" : "rotate-180"
+                    active !== index ? "rotate-0" : "rotate-180"
                   }`}
                   onClick={() => setActive(active !== index ? index : -1)}
                 />
