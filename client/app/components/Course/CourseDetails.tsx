@@ -1,76 +1,83 @@
+import { useGetCourseContentWithoutPurchaseQuery } from "@/app/redux/features/course/courseApi";
 import CoursePlayer from "@/app/utils/CoursePlayer";
 import Rating from "@/app/utils/Rating";
 import { styles } from "@/app/utils/styles";
 import Link from "next/link";
-import React from "react";
+import { useParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BiCheckDouble } from "react-icons/bi";
 import { LuDot } from "react-icons/lu";
 
 type Props = {};
 
 const CourseDetails = (props: Props) => {
+  const params = useParams();
+  const { id } = params;
+
+  const { data, isSuccess, error } =
+    useGetCourseContentWithoutPurchaseQuery(id);
+
+  const [courseData, setCourseData] = useState<any>();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCourseData(data.course);
+    }
+    if (error) {
+      const errorMessage = error as any;
+      toast.error(errorMessage?.data?.message || "Something went wrong!");
+    }
+  }, [isSuccess, error]);
+
+  const discount = Math.ceil(
+    ((parseInt(courseData?.estimatedPrice) - parseInt(courseData?.price)) /
+      parseInt(courseData?.estimatedPrice)) *
+      100
+  );
   return (
     <div className="w-full min-h-screen bg-white dark:bg-slate-900 px-4 md:px-8 lg:px-24 pt-24 grid grid-cols-12 md:gap-12">
       <div className="flex flex-col gap-4 col-span-12 md:col-span-8">
         <h3 className="font-Poppins font-semibold text-xl text-black dark:text-white">
-          Course Title
+          {courseData?.name}
         </h3>
         <div className="flex items-center gap-3 justify-between">
           <div className="flex items-center gap-3">
-            <Rating rating={1.5} />
+            <Rating rating={courseData?.ratings} />
             <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              0 reviews
+              {courseData?.reviews?.length}{" "}
+              {courseData?.reviews?.length === 0 ? "review" : "reviews"}
             </p>
           </div>
           <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-            0 students
+            {courseData?.purchased} {courseData?.purchased > 1 ? "students" : "student"}
           </p>
         </div>
         <div className="pt-2">
           <p className="font-Poppins font-semibold text-lg text-black dark:text-white">
             What you will learn from this course?
           </p>
-          <div className="flex items-center gap-2 pt-2">
-            <BiCheckDouble size={18} className="dark:text-white" />
-            <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              Lorem ipsum dolor sit amet.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 pt-2">
-            <BiCheckDouble size={18} className="dark:text-white" />
-            <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              Lorem ipsum dolor sit amet.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 pt-2">
-            <BiCheckDouble size={18} className="dark:text-white" />
-            <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              Lorem ipsum dolor sit amet.
-            </p>
-          </div>
+          {courseData?.benefits?.map((item: any) => (
+            <div className="flex items-center gap-2 pt-2">
+              <BiCheckDouble size={18} className="dark:text-white" />
+              <p className="text-sm font-Poppins font-normal text-black dark:text-white">
+                {item?.title}
+              </p>
+            </div>
+          ))}
         </div>
         <div className="pt-4">
           <p className="font-Poppins font-semibold text-lg text-black dark:text-white">
             What are the prerequisite for starting this course?
           </p>
-          <div className="flex items-center gap-2 pt-2">
-            <BiCheckDouble size={18} className="dark:text-white" />
-            <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              Lorem ipsum dolor sit amet.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 pt-2">
-            <BiCheckDouble size={18} className="dark:text-white" />
-            <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              Lorem ipsum dolor sit amet.
-            </p>
-          </div>
-          <div className="flex items-center gap-2 pt-2">
-            <BiCheckDouble size={18} className="dark:text-white" />
-            <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-              Lorem ipsum dolor sit amet.
-            </p>
-          </div>
+          {courseData?.prerequisites?.map((item: any) => (
+            <div className="flex items-center gap-2 pt-2">
+              <BiCheckDouble size={18} className="dark:text-white" />
+              <p className="text-sm font-Poppins font-normal text-black dark:text-white">
+                {item?.title}
+              </p>
+            </div>
+          ))}
         </div>
         <p className="font-Poppins font-semibold text-xl text-black dark:text-white pt-4">
           Course Overview
@@ -79,10 +86,7 @@ const CourseDetails = (props: Props) => {
           Course Details
         </p>
         <p className="text-base font-Poppins font-normal text-black dark:text-white">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque qui
-          quisquam quo delectus dignissimos, eum aut maiores distinctio expedita
-          suscipit magnam mollitia laborum nulla necessitatibus neque eveniet,
-          ratione reprehenderit culpa!
+          {courseData?.description}
         </p>
         <div>
           <p className="text-base font-Poppins font-normal text-black dark:text-white">
@@ -97,13 +101,14 @@ const CourseDetails = (props: Props) => {
           </Link>
         </div>
         <div className="flex items-center gap-2 pb-8 md:pb-0">
-          <Rating rating={4.1} />
+          <Rating rating={courseData?.ratings} />
           <p className="text-sm md:text-xl font-Poppins font-normal text-black dark:text-white">
             Course Rating
           </p>
           <LuDot className="dark:white w-3 md:w-10" />
           <p className="text-sm md:text-xl font-Poppins font-normal text-black dark:text-white">
-            0 reviews
+            {courseData?.reviews?.length}{" "}
+            {courseData?.reviews?.length === 0 ? "review" : "reviews"}
           </p>
         </div>
       </div>
@@ -112,18 +117,18 @@ const CourseDetails = (props: Props) => {
           <CoursePlayer videoUrl="7dfa320e86b4bb5569ebaa060d2b1ccf" />
           <div className="flex gap-3 pt-4">
             <p className="text-2xl font-Poppins font-normal text-black dark:text-white">
-              $39
+              ${courseData?.price}
             </p>
             <p className="text-base line-through font-Poppins font-normal text-black dark:text-white">
-              $90
+              ${courseData?.estimatedPrice}
             </p>
             <p className="text-2xl font-Poppins font-normal text-black dark:text-white">
-              60% off
+              {discount}% off
             </p>
           </div>
           <div className="pt-4">
             <Link href="/" className={`${styles.button} px-4`}>
-              Buy Now $39
+              Buy Now ${courseData?.price}
             </Link>
           </div>
           <div className="flex flex-col pt-4">
