@@ -25,7 +25,7 @@ const CoursePreview: FC<Props> = ({
     100;
   return (
     <div className="w-[95%] 800px:w-[80%]">
-      <CoursePlayer videoUrl={courseData.demoUrl} title={courseData.name} />
+      <CoursePlayer videoUrl={courseData.demoUrl} />
       <div className="flex gap-2 mt-5">
         <p className="text-2xl dark:text-orange-400 text-orange-500 font-semibold font-Poppins">
           ${courseData.price}

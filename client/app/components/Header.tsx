@@ -140,7 +140,7 @@ const Header: FC<Props> = ({
         <div
           className={`${
             animateSidebar ? "translate-x-0" : "translate-x-full"
-          } w-[70%] fixed h-screen bg-gray-50  dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0 z-[11] transition ease-in-out duration-[1000ms]`}
+          } w-[70%] fixed h-full min-h-screen bg-gray-50  dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0 z-[11] transition ease-in-out duration-[1000ms]`}
         >
           <div className="absolute top-10 right-5">
             <FaRegTimesCircle
