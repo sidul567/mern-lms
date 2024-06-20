@@ -84,7 +84,7 @@ const Header: FC<Props> = ({
   };
 
   return (
-    <div className="w-full h-[80px] dark:bg-black px-5 shadow-sm z-50 fixed">
+    <div className="w-full h-[80px] bg-white dark:bg-black px-5 shadow-sm z-50 fixed">
       <div className="flex items-center justify-between h-full">
         <div className="logo">
           <Link

@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BiCheckDouble } from "react-icons/bi";
 import { LuDot } from "react-icons/lu";
+import CourseContent from "./CourseContent";
 
 type Props = {};
 
@@ -50,7 +51,8 @@ const CourseDetails = (props: Props) => {
             </p>
           </div>
           <p className="text-sm font-Poppins font-normal text-black dark:text-white">
-            {courseData?.purchased} {courseData?.purchased > 1 ? "students" : "student"}
+            {courseData?.purchased}{" "}
+            {courseData?.purchased > 1 ? "students" : "student"}
           </p>
         </div>
         <div className="pt-2">
@@ -79,9 +81,12 @@ const CourseDetails = (props: Props) => {
             </div>
           ))}
         </div>
-        <p className="font-Poppins font-semibold text-xl text-black dark:text-white pt-4">
-          Course Overview
-        </p>
+        <div>
+          <p className="font-Poppins font-semibold text-xl text-black dark:text-white py-4">
+            Course Overview
+          </p>
+          <CourseContent data={courseData} />
+        </div>
         <p className="font-Poppins font-semibold text-lg text-black dark:text-white pt-3">
           Course Details
         </p>
