@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const { user } = useSelector((state: any) => state.auth);
   const [toggled, setToggled] = React.useState(false);
   const [broken, setBroken] = React.useState(false);
@@ -54,4 +54,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

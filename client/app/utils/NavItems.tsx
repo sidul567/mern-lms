@@ -36,6 +36,7 @@ const NavItems: FC<Props> = ({ isMobile, activeItem }: Props) => {
         {navItemsData &&
           navItemsData.map((item, index) => (
             <Link
+            key={index}
               href={item.url}
               passHref
               className={`${
@@ -59,6 +60,7 @@ const NavItems: FC<Props> = ({ isMobile, activeItem }: Props) => {
           {navItemsData &&
             navItemsData.map((item, index) => (
               <Link
+              key={index}
                 href={item.url}
                 passHref
                 className={`${

@@ -72,8 +72,8 @@ const CoursePreview: FC<Props> = ({
       </div>
       <h2 className="font-semibold dark:text-white mt-4 text-xl">What you will learn from this course?</h2>
       {
-        courseData.benefits.map((benefit:any)=>(
-          <div className="flex mt-2 gap-1">
+        courseData.benefits.map((benefit:any, index:number)=>(
+          <div className="flex mt-2 gap-1" key={index}>
             <BiCheckDouble size={18} className="dark:text-white" />
             <p className="text-sm font-normal dark:text-white font-Poppins">{benefit.title}</p>
           </div>
@@ -81,8 +81,8 @@ const CoursePreview: FC<Props> = ({
       }
       <h2 className="font-semibold dark:text-white mt-4 text-xl">What are the prerequisites for start this course?</h2>
       {
-        courseData.prerequisites.map((prerequisite:any)=>(
-          <div className="flex mt-2 gap-1">
+        courseData.prerequisites.map((prerequisite:any, index:number)=>(
+          <div className="flex mt-2 gap-1" key={index}>
             <BiCheckDouble size={18} className="dark:text-white" />
             <p className="text-sm font-normal dark:text-white font-Poppins">{prerequisite.title}</p>
           </div>

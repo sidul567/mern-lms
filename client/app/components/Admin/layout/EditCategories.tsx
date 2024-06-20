@@ -104,7 +104,7 @@ const EditCategories = (props: Props) => {
           <h1 className={`${styles.title} mb-4`}>All Categories</h1>
           <div className="space-y-4 pr-4 flex flex-col justify-center items-center">
             {categories.map((category: any, index: number) => (
-              <div className="flex gap-1 w-full justify-center items-center">
+              <div className="flex gap-1 w-full justify-center items-center" key={index}>
                 <input
                   className={`${styles.input} !w-[50%]`}
                   value={category.title}

@@ -27,7 +27,7 @@ const Courses = (props: Props) => {
 
       <div className="px-4 800px:px-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 pb-12">
         {courses &&
-          courses.map((course, index) => <CourseCard course={course} />)}
+          courses.map((course, index) => <CourseCard course={course} key={index} />)}
       </div>
     </div>
   );

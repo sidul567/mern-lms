@@ -59,8 +59,8 @@ const CourseDetails = (props: Props) => {
           <p className="font-Poppins font-semibold text-lg text-black dark:text-white">
             What you will learn from this course?
           </p>
-          {courseData?.benefits?.map((item: any) => (
-            <div className="flex items-center gap-2 pt-2">
+          {courseData?.benefits?.map((item: any, index:number) => (
+            <div className="flex items-center gap-2 pt-2" key={index}>
               <BiCheckDouble size={18} className="dark:text-white" />
               <p className="text-sm font-Poppins font-normal text-black dark:text-white">
                 {item?.title}
@@ -72,8 +72,8 @@ const CourseDetails = (props: Props) => {
           <p className="font-Poppins font-semibold text-lg text-black dark:text-white">
             What are the prerequisite for starting this course?
           </p>
-          {courseData?.prerequisites?.map((item: any) => (
-            <div className="flex items-center gap-2 pt-2">
+          {courseData?.prerequisites?.map((item: any, index:number) => (
+            <div className="flex items-center gap-2 pt-2" key={index}>
               <BiCheckDouble size={18} className="dark:text-white" />
               <p className="text-sm font-Poppins font-normal text-black dark:text-white">
                 {item?.title}

@@ -147,6 +147,7 @@ const CourseContent: FC<Props> = ({
                 courseContentData[index - 1].videoSection;
             return (
               <div
+              key={index}
                 className={`dark:bg-slate-900 bg-gray-50 shadow-sm rounded-md px-2 800px:px-10 ${
                   showSection ? "mt-4 pt-4" : "pt-0.5"
                 }`}
@@ -263,7 +264,7 @@ const CourseContent: FC<Props> = ({
                       </div>
                       {courseContent.links.map(
                         (link: any, linkindex: number) => (
-                          <div>
+                          <div key={linkindex}>
                             <div className="flex justify-between items-center">
                               <p className={`${styles.label}`}>
                                 Link-{linkindex + 1}

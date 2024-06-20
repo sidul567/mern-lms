@@ -110,7 +110,7 @@ const EditFAQ = (props: Props) => {
       ) : (
         <div className="w-full p-12 space-y-3">
           {faqs.map((faq: any, index: number) => (
-            <div className="w-full rounded-sm shadow-md">
+            <div className="w-full rounded-sm shadow-md" key={index}>
               <div className="dark:text-white w-full p-3 font-Poppins bg-slate-50 flex justify-between items-center dark:bg-slate-700 relative cursor-pointer">
                 <input
                   className="text-sm font-medium bg-transparent outline-none w-full"

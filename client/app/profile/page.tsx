@@ -9,7 +9,7 @@ import Profile from "../components/Profile/Profile";
 
 type Props = {};
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   const [activeItem, setActiveItem] = useState(5);
   const [open, setOpen] = useState(false);
   const [route, setRoute] = useState("login");
@@ -35,4 +35,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

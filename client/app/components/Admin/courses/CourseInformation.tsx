@@ -195,8 +195,8 @@ const CourseInformation = ({
                 Select Category
               </option>
               {categories &&
-                categories.map((category: any) => (
-                  <option value={category.title}>{category.title}</option>
+                categories.map((category: any, index:number) => (
+                  <option value={category.title} key={index}>{category.title}</option>
                 ))}
             </select>
           </div>

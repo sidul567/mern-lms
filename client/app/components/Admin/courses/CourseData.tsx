@@ -22,14 +22,14 @@ const CourseData: FC<Props> = ({
 }: Props) => {
   const handleChangeBenefit = (e: any, index: number) => {
     const updatedBenefits = [...benefits];
-    updatedBenefits[index] = {...benefits[index]};
+    updatedBenefits[index] = { ...benefits[index] };
     updatedBenefits[index].title = e.target.value;
     setBenefits(updatedBenefits);
   };
 
   const handleChangePrerequisite = (e: any, index: number) => {
     const updatedPrerequisite = [...prerequisites];
-    updatedPrerequisite[index] = {...prerequisites[index]};
+    updatedPrerequisite[index] = { ...prerequisites[index] };
     updatedPrerequisite[index].title = e.target.value;
     setPrerequisites(updatedPrerequisite);
   };
@@ -42,16 +42,20 @@ const CourseData: FC<Props> = ({
     setPrerequisites([...prerequisites, { title: "" }]);
   };
 
-  const handleNext = ()=>{
-    const isExistBenefits = benefits.every((benefit)=>benefit.title.trim() !== "");
-    const isExistPrerequisites = prerequisites.every((prerequisite)=>prerequisite.title.trim() !== "");
-    
-    if(isExistBenefits && isExistPrerequisites){
-      setActive(active+1);
-    }else{
+  const handleNext = () => {
+    const isExistBenefits = benefits.every(
+      (benefit) => benefit.title.trim() !== ""
+    );
+    const isExistPrerequisites = prerequisites.every(
+      (prerequisite) => prerequisite.title.trim() !== ""
+    );
+
+    if (isExistBenefits && isExistPrerequisites) {
+      setActive(active + 1);
+    } else {
       toast.error("Please fill up all the fields!");
     }
-  }  
+  };
 
   return (
     <div className="w-[95%] 800px:w-[80%]">
@@ -61,6 +65,7 @@ const CourseData: FC<Props> = ({
         </label>
         {benefits.map((benefit, index) => (
           <input
+            key={index}
             type="text"
             name="name"
             id="name"
@@ -83,6 +88,7 @@ const CourseData: FC<Props> = ({
         </label>
         {prerequisites.map((prerequisite, index) => (
           <input
+            key={index}
             type="text"
             name="name"
             id="name"
@@ -101,11 +107,18 @@ const CourseData: FC<Props> = ({
       </div>
       <div className="flex justify-between">
         <div className="w-[30%] my-8">
-          <button className={`${styles.button}`} onClick={()=>setActive(active-1)}>Prev</button>
+          <button
+            className={`${styles.button}`}
+            onClick={() => setActive(active - 1)}
+          >
+            Prev
+          </button>
         </div>
         <div className="w-[30%] my-8">
-        <button className={`${styles.button}`} onClick={handleNext}>Next</button>
-        </div> 
+          <button className={`${styles.button}`} onClick={handleNext}>
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

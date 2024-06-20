@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 type Props = {};
 
-const page = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const { user } = useSelector((state: any) => state.auth);
   const [toggled, setToggled] = React.useState(false);
@@ -55,4 +55,4 @@ const page = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default page;
+export default Page;

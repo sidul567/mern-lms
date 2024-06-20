@@ -36,7 +36,7 @@ const FAQ = (props: Props) => {
     <div className="bg-white dark:bg-slate-900 w-full px-4 800px:px-24 pt-12 space-y-3">
       <h3 className={`${styles.title}`}>Frequently Asked Questions</h3>
       {faqs.map((faq: any, index: number) => (
-        <div className="w-full rounded-sm shadow-md">
+        <div className="w-full rounded-sm shadow-md" key={index}>
           <div className="dark:text-white w-full p-3 font-Poppins bg-slate-50 flex justify-between items-center dark:bg-slate-700 relative cursor-pointer">
             <p
               className="text-sm font-medium bg-transparent outline-none w-full"

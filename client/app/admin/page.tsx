@@ -9,7 +9,7 @@ import AdminDashboard from "../components/Admin/AdminDashboard";
 
 type Props = {};
 
-const page: FC<Props> = (props: Props) => {
+const Page: FC<Props> = (props: Props) => {
   const { user } = useSelector((state: any) => state.auth);
   return (
     <>
@@ -33,4 +33,4 @@ const page: FC<Props> = (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

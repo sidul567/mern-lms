@@ -6,7 +6,7 @@ export const ordersApi = apiSlice.injectEndpoints({
             query: ()=>({
                 url: "/orders",
                 method: "GET",
-                credentials: "include" as conts,
+                credentials: "include" as const,
             })
         })
     })
