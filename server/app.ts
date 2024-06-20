@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 // CORS setup
 app.use(cors({
-    'origin': ['http://localhost:3000'],
+    'origin': ['http://localhost:3000', 'https://mern-lms-567.netlify.app'],
     'credentials': true
 }))
 
