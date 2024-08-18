@@ -16,6 +16,8 @@
     "@mui/x-data-grid": "^6.19.4",
     "@netlify/plugin-nextjs": "^5.3.3",
     "@reduxjs/toolkit": "^2.0.1",
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@stripe/stripe-js": "^4.3.0",
     "axios": "^1.6.7",
     "formik": "^2.4.5",
     "lodash": "^4.17.21",

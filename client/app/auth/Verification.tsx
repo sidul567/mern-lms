@@ -15,22 +15,22 @@ type VerificationNumber = {
 
 const Verification: FC<Props> = ({ setRoute }: Props) => {
   const [invalid, setInvalid] = useState<boolean>(false);
-  const {token} = useSelector((state:any)=>state.auth);
-  const [activation, {isSuccess, error, data}] = useActivationMutation();
+  const { token } = useSelector((state: any) => state.auth);
+  const [activation, { isSuccess, error, data }] = useActivationMutation();
 
-  useEffect(()=>{
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       const message = data?.message;
       toast.success(message || "Account activate successfully!");
       setRoute("login");
     }
 
-    if(error){
+    if (error) {
       setInvalid(true);
       const errorMessage = error as any;
-      toast.error(errorMessage.data.message || "Something went wrong!");
+      toast.error(errorMessage?.data?.message || "Something went wrong!");
     }
-  }, [isSuccess, error])
+  }, [isSuccess, error]);
 
   const inputRef = [
     useRef<HTMLInputElement>(null),
@@ -49,8 +49,8 @@ const Verification: FC<Props> = ({ setRoute }: Props) => {
 
   const handleInputChange = (index: number, value: string) => {
     setInvalid(false);
-    if(value.length < 2){
-        setVerificationNumber({...verificationNumber, [index]: value});
+    if (value.length < 2) {
+      setVerificationNumber({ ...verificationNumber, [index]: value });
     }
     if (value === "" && index > 0) {
       inputRef[index - 1].current?.focus();
@@ -62,15 +62,15 @@ const Verification: FC<Props> = ({ setRoute }: Props) => {
   const handleVerificationSubmit = async () => {
     const joinVerificationNumber = Object.values(verificationNumber).join("");
 
-    if(joinVerificationNumber.length !== 4){
+    if (joinVerificationNumber.length !== 4) {
       setInvalid(true);
       return;
     }
-    
+
     await activation({
       activationToken: token,
-      activationCode: joinVerificationNumber
-    })
+      activationCode: joinVerificationNumber,
+    });
   };
 
   return (
@@ -85,14 +85,20 @@ const Verification: FC<Props> = ({ setRoute }: Props) => {
             type="number"
             key={key}
             maxLength={1}
-            className={`w-[65px] h-[65px] outline-none border-2 rounded-md text-4xl dark:text-white flex justify-center items-center font-Josefin text-center ${invalid ? "border-red-500 shake" : "border-slate-900 dark:border-white"}`}
+            className={`w-[65px] h-[65px] outline-none border-2 rounded-md text-4xl dark:text-white flex justify-center items-center font-Josefin text-center ${
+              invalid
+                ? "border-red-500 shake"
+                : "border-slate-900 dark:border-white"
+            }`}
             value={verificationNumber[index]}
-            onChange={(e)=>handleInputChange(index, e.target.value)}
+            onChange={(e) => handleInputChange(index, e.target.value)}
             ref={inputRef[index]}
           />
         ))}
       </div>
-      <button className={`${styles.button}`} onClick={handleVerificationSubmit}>Verify OTP</button>
+      <button className={`${styles.button}`} onClick={handleVerificationSubmit}>
+        Verify OTP
+      </button>
       <h5 className="mt-10 dark:text-white text-center font-Poppins font-medium text-sm">
         Go back to Login?{" "}
         <span

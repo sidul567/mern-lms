@@ -24,7 +24,9 @@ const CourseContent: FC<Props> = ({ data }) => {
   };
 
   const videoSections = data && [
-    ...new Set<string>(data?.courseData?.map((item: any) => item?.videoSection)),
+    ...new Set<string>(
+      data?.courseData?.map((item: any) => item?.videoSection)
+    ),
   ];
 
   useEffect(() => {
@@ -85,7 +87,12 @@ const CourseContent: FC<Props> = ({ data }) => {
               style={{ maxHeight: "0px" }}
             >
               {sectionVideos.map((item, index) => (
-                <div key={index} className={`flex gap-2 items-start pt-2 ${index === sectionVideos.length-1 && "pb-4"}`}>
+                <div
+                  key={index}
+                  className={`flex gap-2 items-start pt-2 ${
+                    index === sectionVideos.length - 1 && "pb-4"
+                  }`}
+                >
                   <MdOutlineOndemandVideo
                     size={24}
                     className="text-orange-500"

@@ -17,6 +17,7 @@ const orderSchema: Schema<IOrder> = new mongoose.Schema({
     },
     paymentInfo: {
         type: Object,
+        required: true,
     },
 }, {timestamps: true})
 
