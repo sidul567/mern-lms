@@ -1,116 +1,82 @@
-import React, { FC, useState, useRef, useEffect } from "react";
-import { LuDot } from "react-icons/lu";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { MdOutlineOndemandVideo } from "react-icons/md";
+import { useGetCourseContentWithPurchaseQuery } from "@/app/redux/features/course/courseApi";
+import React, { useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
+import CourseMedia from "./CourseMedia";
+import { useParams } from "next/navigation";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { styles } from "@/app/utils/styles";
+import CourseTab from "./CourseTab";
+import CourseContentList from "./CourseContentList";
 
-type Props = {
-  data: any;
-};
+type Props = {};
 
-const CourseContent: FC<Props> = ({ data }) => {
-  const [activeSection, setActiveSection] = useState<Set<string>>(
-    new Set<string>()
-  );
-  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+const CourseContent = (props: Props) => {
+  const params = useParams();
+  const { id } = params;
 
-  const handleClickActiveSection = (section: string) => {
-    const newActiveSections = new Set(activeSection);
-    if (newActiveSections.has(section)) {
-      newActiveSections.delete(section);
-    } else {
-      newActiveSections.add(section);
-    }
-    setActiveSection(newActiveSections);
-  };
-
-  const videoSections = data && [
-    ...new Set<string>(
-      data?.courseData?.map((item: any) => item?.videoSection)
-    ),
-  ];
+  const { data, isLoading, isSuccess } =
+    useGetCourseContentWithPurchaseQuery(id);
+  const [courseContent, setCourseContent] = useState<any>([]);
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState<string>("overview");
 
   useEffect(() => {
-    Object.values(sectionRefs.current).forEach((ref) => {
-      if (ref) {
-        ref.style.maxHeight = activeSection.has(ref.dataset.section as string)
-          ? `${ref.scrollHeight}px`
-          : "0px";
-      }
-    });
-  }, [activeSection]);
+    if (isSuccess) {
+      setCourseContent(data?.content);
+    }
+  }, [data, isSuccess]);
 
   return (
-    <div className="flex flex-col gap-4">
-      {videoSections?.map((section: string) => {
-        const sectionVideos: any[] = data?.courseData?.filter(
-          (item: any) => item?.videoSection === section
-        );
-
-        const totalVideos = sectionVideos.length;
-        const sectionVideosLength = sectionVideos.reduce(
-          (total, item) => total + item.videoLength,
-          0
-        );
-        const sectionVideosHours = sectionVideosLength / 60;
-
-        return (
-          <div key={section} className="w-full rounded-sm shadow-md">
-            <div
-              className="dark:text-white w-full p-3 font-Poppins bg-slate-50 flex justify-between items-center dark:bg-slate-800 relative cursor-pointer"
-              onClick={() => handleClickActiveSection(section)}
-            >
-              <div className="bg-transparent outline-none w-full">
-                <div>
-                  <p className="text-lg font-medium text-black dark:text-white flex gap-2 items-center">
-                    {section} <LuDot size={20} className="dark:white" />{" "}
-                    {sectionVideosLength < 60
-                      ? sectionVideosLength
-                      : sectionVideosHours.toFixed(2)}{" "}
-                    {sectionVideosLength < 60 ? "minutes" : "hours"}
-                  </p>
-                  <p className="text-base font-medium text-black dark:text-white">
-                    {totalVideos} Lessons
-                  </p>
-                </div>
-              </div>
-              <MdKeyboardArrowDown
-                size={25}
-                className={`cursor-pointer duration-300 ${
-                  !activeSection.has(section) ? "rotate-0" : "rotate-180"
-                }`}
-              />
+    <div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="grid grid-cols-10 gap-6">
+          <div className="col-span-7">
+            <CourseMedia
+              data={courseContent}
+              activeVideoIndex={activeVideoIndex}
+              setActiveVideoIndex={setActiveVideoIndex}
+            />
+            <div className="flex justify-between items-center mt-6">
+              <button
+                className={`${styles.button} flex items-center justify-center gap-2 !w-fit px-8`}
+                onClick={() =>
+                  activeVideoIndex > 0 &&
+                  setActiveVideoIndex(activeVideoIndex - 1)
+                }
+                disabled = {activeVideoIndex === 0}
+              >
+                <FaArrowLeft />
+                Prev
+              </button>
+              <button
+                className={`${styles.button} flex items-center justify-center gap-2 !w-fit px-8`}
+                onClick={() =>
+                  activeVideoIndex < courseContent.length - 1 &&
+                  setActiveVideoIndex(activeVideoIndex + 1)
+                }
+                disabled = {activeVideoIndex === courseContent.length - 1}
+              >
+                Next
+                <FaArrowRight />
+              </button>
             </div>
-            <div
-              ref={(el) => (sectionRefs.current[section] = el)}
-              data-section={section}
-              className="text-sm font-Poppins w-full bg-slate-50 dark:bg-slate-800 transition-[max-height] duration-300 overflow-hidden ease-in-out dark:text-white pl-6 cursor-pointer"
-              style={{ maxHeight: "0px" }}
-            >
-              {sectionVideos.map((item, index) => (
-                <div
-                  key={index}
-                  className={`flex gap-2 items-start pt-2 ${
-                    index === sectionVideos.length - 1 && "pb-4"
-                  }`}
-                >
-                  <MdOutlineOndemandVideo
-                    size={24}
-                    className="text-orange-500"
-                  />
-                  <div className="flex flex-col gap-1">
-                    <p className="font-Poppins text-black dark:text-white text-base">
-                      {item.title}
-                    </p>
-                    <p className="font-Poppins text-black dark:text-white text-sm">
-                      {item.videoLength} minutes
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+
+            <h3 className="text-lg font-semibold font-Poppins dark:text-white my-4">{courseContent?.[activeVideoIndex]?.title}</h3>
+
+            {/* Course tab */}
+            <CourseTab
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              data={courseContent[activeVideoIndex]}
+            />
           </div>
-        );
-      })}
+          <div className="col-span-3">
+              <CourseContentList data={courseContent} activeVideoIndex={activeVideoIndex} setActiveVideoIndex={setActiveVideoIndex} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

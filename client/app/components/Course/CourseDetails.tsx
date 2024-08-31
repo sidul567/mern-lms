@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { BiCheckDouble } from "react-icons/bi";
 import { LuDot } from "react-icons/lu";
-import CourseContent from "./CourseContent";
+import CourseContentList from "./CourseContentList";
 import { Box, Modal } from "@mui/material";
 import { FaTimes } from "react-icons/fa";
 import {
@@ -128,7 +128,7 @@ const CourseDetails = (props: Props) => {
             <p className="font-Poppins font-semibold text-xl text-black dark:text-white py-4">
               Course Overview
             </p>
-            <CourseContent data={courseData} />
+            <CourseContentList data={courseData?.courseData} />
           </div>
           <p className="font-Poppins font-semibold text-lg text-black dark:text-white pt-3">
             Course Details

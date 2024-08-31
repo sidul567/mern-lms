@@ -69,7 +69,7 @@ const Header: FC<Props> = ({
       const errorMessage = error as any;
       toast.error(errorMessage.data.message || "Something went wrong!");
     }
-  }, [user, data]);
+  }, [user, data, error, isSuccess, socialAuth]);
 
   const handleOpenSidebar = () => {
     setAnimateSidebar(true);
@@ -98,7 +98,7 @@ const Header: FC<Props> = ({
           <NavItems activeItem={activeItem} isMobile={false} />
           <ThemeSwitcher />
           {user ? (
-            <Link href={"profile"}>
+            <Link href={"/profile"}>
               <Image
                 loader={() => (user?.avatar ? user.avatar.url : avatar.src)}
                 src={user?.avatar ? user.avatar.url : avatar.src}

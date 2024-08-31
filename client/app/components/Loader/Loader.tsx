@@ -5,7 +5,7 @@ type Props = {};
 
 const Loader = (props: Props) => {
   return (
-    <div className="fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-10 dark:bg-slate-900 w-full h-full flex justify-center items-center">
+    <div className="fixed top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 z-10 w-full h-full flex justify-center items-center">
       <Puff
         visible={true}
         height="80"
