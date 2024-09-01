@@ -4,6 +4,11 @@ import Link from "next/link";
 import React, { FC, useState } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
+import QuestionAnswers from "./QuestionAnswers";
+import { useSaveQuestionMutation } from "@/app/redux/features/course/courseApi";
+import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
+import { CircularProgress } from "@mui/material";
 
 type CourseTabPropsType = {
   activeTab: string;
@@ -18,7 +23,39 @@ const CourseTab: FC<CourseTabPropsType> = ({
 }) => {
   const { user } = useSelector((state: any) => state.auth);
 
+  const params = useParams();
+  const { id } = params;
+
+  const [saveQuestion, { isLoading: saveQuestionLoading }] =
+    useSaveQuestionMutation();
+
   const [rating, setRating] = useState(0);
+  const [question, setQuestion] = useState("");
+
+  const handleQuestionSubmit = () => {
+    if (question.trim().length === 0) {
+      toast.error("Question can't be empty.");
+      return;
+    }
+
+    const body = {
+      courseId: id,
+      contentId: data?._id,
+      question,
+    };
+
+    saveQuestion(body).then(({ data, error }: any) => {
+      if (error) {
+        toast.error(error?.message || "Something went wrong.");
+        return;
+      }
+
+      if (data && data?.success) {
+        toast.success("Question added successfully.");
+        setQuestion("");
+      }
+    });
+  };
 
   return (
     <div>
@@ -73,14 +110,31 @@ const CourseTab: FC<CourseTabPropsType> = ({
               <textarea
                 className="text-sm font-Poppins dark:text-white font-normal bg-transparent dark:bg-transparent outline-none resize-none no-scrollbar border rounded-lg w-full p-2"
                 rows={8}
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                placeholder="Type your question..."
               />
             </div>
             <div className="flex justify-end mt-4">
-              <button className={`${styles.button} !w-fit px-6`}>Submit</button>
+              <button
+                className={`${styles.button} !w-fit px-6 flex items-center gap-2`}
+                onClick={handleQuestionSubmit}
+                disabled={saveQuestionLoading}
+              >
+                Submit
+                {saveQuestionLoading && (
+                  <CircularProgress size={20} color="inherit" />
+                )}
+              </button>
             </div>
           </div>
+
+          {/* Question and Answer */}
+          <QuestionAnswers data={data} />
         </div>
       )}
+
+      {/* Review */}
       {activeTab === "reviews" && (
         <div className="px-4 w-full transition-all duration-500">
           <div className="w-full">

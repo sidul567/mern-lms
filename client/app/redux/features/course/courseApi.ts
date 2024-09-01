@@ -37,6 +37,16 @@ const courseApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include" as const,
       }),
+      providesTags: ["getCourseContentWithPurchase"],
+    }),
+    saveQuestion: builder.mutation({
+      query: (body) => ({
+        url: `course/addQuestion`,
+        body: body,
+        credentials: "include" as const,
+        method: "PUT",
+      }),
+      invalidatesTags: ["getCourseContentWithPurchase"],
     }),
     deleteCourse: builder.mutation({
       query: ({ courseId }) => ({
@@ -64,4 +74,5 @@ export const {
   useEditCourseMutation,
   useGetCourseContentWithoutPurchaseQuery,
   useGetCourseContentWithPurchaseQuery,
+  useSaveQuestionMutation,
 } = courseApi;

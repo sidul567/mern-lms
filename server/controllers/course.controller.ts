@@ -146,7 +146,7 @@ export const addQuestion = catchAsyncError(async(req: Request, res: Response, ne
         questionReplies: [],
     }
 
-    content.questions.push(newQuestion);
+    content.questions.unshift(newQuestion);
 
     await Notification.create({
         title: "New Question",

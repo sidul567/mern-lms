@@ -60,7 +60,7 @@ const UserList: FC<Props> = ({ isTeam }: Props) => {
       const errorMessage = roleError as any;
       toast.error(errorMessage?.data.message || "Something went wrong!");
     }
-  }, [deleteIsSuccess, deleteIsError, deleteError, roleIsSuccess, roleIsError, roleError]);
+  }, [deleteIsSuccess, deleteIsError, deleteError, roleIsSuccess, roleIsError, roleError, refetch]);
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", flex: 0.4, minWidth: 70 },

@@ -32,7 +32,7 @@ const CourseContent = (props: Props) => {
         <Loader />
       ) : (
         <div className="grid grid-cols-10 gap-6">
-          <div className="col-span-7">
+          <div className="col-span-10 md:col-span-6 lg:col-span-7">
             <CourseMedia
               data={courseContent}
               activeVideoIndex={activeVideoIndex}
@@ -72,7 +72,7 @@ const CourseContent = (props: Props) => {
               data={courseContent[activeVideoIndex]}
             />
           </div>
-          <div className="col-span-3">
+          <div className="col-span-10 md:col-span-4 lg:col-span-3">
               <CourseContentList data={courseContent} activeVideoIndex={activeVideoIndex} setActiveVideoIndex={setActiveVideoIndex} />
           </div>
         </div>
